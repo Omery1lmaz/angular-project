@@ -1,0 +1,22 @@
+<tr class="width" *ngIf="todo.is_complated">
+  <th scope="row">{{ todo._id }}</th>
+  <td>{{ todo.title }}</td>
+  <td>{{ todo.iscomplated }}</td>
+  <td>
+    <button
+      type="submit"
+      class="btn btn-danger"
+      (dblclick)="TodoDelete.emit(todo._id)"
+    >
+      Delete
+    </button>
+    <button
+      type="submit"
+      class="btn btn-success ms-1"
+      (click)="updateStatus(todo._id, todo.is_complated)"
+    >
+      Finished
+    </button>
+  </td>
+</tr>
+
