@@ -12,14 +12,14 @@
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
               </tr>
-              <movie
+              <todo
                 *ngFor="let todo of todos"
                 [todo]="todo"
                 (TodoDelete)="deleteTodo($event)"
                 (TodoUpdateStatus)="
                   updateStatusTodo($event._id, $event.is_complated)
                 "
-              ></movie>
+              ></todo>
             </thead>
             <div></div>
             <tbody></tbody>

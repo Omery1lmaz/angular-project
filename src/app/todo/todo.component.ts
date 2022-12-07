@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 @Component({
-  selector: 'movie',
-  templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css'],
+  selector: 'todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css'],
 })
-export class MovieComponent {
+export class TodoComponent {
   @Input() todo!: Todo;
 
   @Output() TodoDelete = new EventEmitter();

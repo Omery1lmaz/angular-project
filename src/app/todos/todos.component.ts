@@ -3,10 +3,10 @@ import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 @Component({
   selector: 'movies',
-  templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.css'],
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css'],
 })
-export class MoviesComponent {
+export class TodosComponent {
   todos!: Todo[];
   title: string = '';
 

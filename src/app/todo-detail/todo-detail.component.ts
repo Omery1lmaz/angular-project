@@ -4,11 +4,11 @@ import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 
 @Component({
-  selector: 'movie-detail',
-  templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.css'],
+  selector: 'todo-detail',
+  templateUrl: './todo-detail.component.html',
+  styleUrls: ['./todo-detail.component.css'],
 })
-export class MovieDetailComponent {
+export class TodoDetailComponent {
   id: string = '';
   todo!: Todo;
   constructor(

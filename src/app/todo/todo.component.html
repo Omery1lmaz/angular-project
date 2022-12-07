@@ -1,7 +1,6 @@
 <tr class="width" >
   <th (dblclick)="updateStatus(todo._id, todo.is_complated)" scope="row">{{ todo._id }}</th>
   <td >{{ todo.title }}</td>
-  <td>{{ todo.is_complated }}</td>
   <ng-container *ngIf="todo.is_complated == true; else elseTemplate">
     <td>It's okey</td>
   </ng-container>
