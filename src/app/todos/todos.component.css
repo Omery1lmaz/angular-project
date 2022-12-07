@@ -20,8 +20,17 @@
   outline: none;
   color: aliceblue;
 }
+.false-todo {
+  text-decoration-line: line-through;
+}
+.false-status-todo {
+  background-color: red;
+}
+.status-btn {
+  background-color: #7e40f6;
+}
 ::placeholder {
-  color:     aliceblue;
+  color: aliceblue;
   opacity: 1; /* Firefox */
   font-size: 15px;
 }
