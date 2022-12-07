@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Bucket from '@spica-devkit/bucket';
-import { Todo } from './todo';
+import { Todo } from 'src/interfaces/interfaces';
 import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 export class TodoService {
   apikey = environment.Api_Key;
   constructor() {
-    console.log('Cunstructor');
     Bucket.initialize({
       publicUrl: environment.Public_Url,
       apikey: this.apikey,

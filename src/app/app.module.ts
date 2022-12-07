@@ -12,7 +12,7 @@ import { TodosComponent } from './todos/todos.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TodoDetailComponent,
+    // TodoDetailComponent,
     TodoComponent,
     TodosComponent,
   ],
