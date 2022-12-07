@@ -1,4 +1,4 @@
-<section class="vh-100" style="background-color: #eee">
+<section class="vh-100" style="background-color: #eee" e>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-9 col-xl-7">
@@ -11,17 +11,28 @@
             >
               <div class="col-12 width-100%">
                 <div class="form-outline">
-                  <div class="row width-600">
-                    <label class="form-label" for="form1"
-                      >Enter a task here</label
+                  <div class="row width-600 justify-content-beetwen">
+                    <label class="form-label" for="form1">Todo Name</label>
+                    <input
+                      *ngIf="todo"
+                      type="text"
+                      id="form1"
+                      name="todo"
+                      value="{{ todo.title }}"
+                      class="form-control"
+                      [(ngModel)]="todo.title"
+                      min="5"
+                    />
+                    <button
+                      type="submit"
+                      class="btn btn-primary d-flex justify-content-space-beetwen"
+                      (click)="editTodo()"
                     >
-                    <input type="text" id="form1" class="form-control" />
+                      Save
+                    </button>
                   </div>
-                </div>              
+                </div>
               </div>
-              <button type="submit width-100" class="btn btn-primary d-flex justify-content-beetwen">
-                Save
-              </button>
             </form>
           </div>
         </div>

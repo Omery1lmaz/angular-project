@@ -7,15 +7,21 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./movies.component.css'],
 })
 export class MoviesComponent {
-  todos: any;
+  todos!: Todo[];
   title: string = '';
-  updated: boolean = false;
-  todoService: TodoService;
-  constructor() {
-    this.todoService = new TodoService();
+
+  constructor(private todoService: TodoService) {
+    // this.todos = [
+    //   {
+    //     is_complated: false,
+    //     _id: '',
+    //     title: '',
+    //   },
+    // ];
+    todoService = new TodoService();
   }
   async ngOnInit() {
-    this.todos = await this.getTodos();
+    this.todos = (await this.getTodos()) as Todo[];
   }
   ngAfterViewChecked() {
     console.log('todo ', this.title);
@@ -27,20 +33,19 @@ export class MoviesComponent {
     console.log('titlee', title);
     console.log('titlee');
     await this.todoService.addTodo(title);
-    this.getTodos().then((res) => (this.todos = res as string[]));
-    this.title=''
+    this.getTodos().then((res) => (this.todos = res as Todo[]));
+    this.title = '';
   }
   public async deleteTodo(id: string) {
     await this.todoService.deleteTodo(id);
     // this.todos = JSON.parse(JSON.stringify(this.getTodos()));
-    this.getTodos().then((res) => (this.todos = res as string[]));
-    console.log(this.todos,"deleteeeee");
-
+    this.getTodos().then((res) => (this.todos = res as Todo[]));
+    console.log(this.todos, 'deleteeeee');
   }
   public async updateStatusTodo(id: string, is_complated: boolean) {
     console.log(id, !is_complated);
     const res = await this.todoService.updateTodo(id, !is_complated);
     // this.todos = JSON.parse(JSON.stringify(this.getTodos()));
-    this.getTodos().then((res) => (this.todos = res as string[]));
+    this.getTodos().then((res) => (this.todos = res as Todo[]));
   }
 }

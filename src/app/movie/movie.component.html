@@ -1,22 +1,25 @@
-<tr class="width" *ngIf="todo.is_complated">
-  <th scope="row">{{ todo._id }}</th>
-  <td>{{ todo.title }}</td>
-  <td>{{ todo.iscomplated }}</td>
+<tr class="width" >
+  <th (dblclick)="updateStatus(todo._id, todo.is_complated)" scope="row">{{ todo._id }}</th>
+  <td >{{ todo.title }}</td>
+  <td>{{ todo.is_complated }}</td>
+  <ng-container *ngIf="todo.is_complated == true; else elseTemplate">
+    <td>It's okey</td>
+  </ng-container>
+  <ng-template #elseTemplate> It's pending </ng-template>
   <td>
     <button
       type="submit"
       class="btn btn-danger"
-      (dblclick)="TodoDelete.emit(todo._id)"
+      (click)="TodoDelete.emit(todo._id)"
     >
       Delete
     </button>
     <button
       type="submit"
       class="btn btn-success ms-1"
-      (click)="updateStatus(todo._id, todo.is_complated)"
+      [routerLink]="['/edit-movie', todo._id]"
     >
-      Finished
+      Edit
     </button>
   </td>
 </tr>
-

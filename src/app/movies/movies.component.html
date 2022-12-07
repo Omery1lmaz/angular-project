@@ -4,32 +4,6 @@
       <div class="card rounded-3">
         <div class="card-body p-4">
           <h4 class="text-center my-3 pb-3">To Do App</h4>
-
-          <form
-            class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
-          >
-            <div class="col-12">
-              <div class="form-outline">
-                <div class="d-flex justify-content-beetwen">
-                  <input
-                    type="text"
-                    id="form1"
-                    class="form-control"
-                    [(ngModel)]="title"
-                    name="title"
-                  />
-                  <button
-                    type="submit"
-                    class="btn btn-primary mx-2"
-                    (click)="addTodo(title)"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-
           <table class="table mb-4">
             <thead>
               <tr>

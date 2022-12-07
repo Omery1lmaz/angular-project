@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 @Component({
@@ -7,7 +8,7 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent {
-  @Input() todo: any;
+  @Input() todo!: Todo;
 
   @Output() TodoDelete = new EventEmitter();
   @Output() TodoUpdateStatus: EventEmitter<{
@@ -15,9 +16,11 @@ export class MovieComponent {
     is_complated: boolean;
   }> = new EventEmitter();
   constructor() {}
-
+  ngOnChanges() {
+    console.log('todo 1', this.todo);
+  }
 
   updateStatus(_id: string, is_complated: boolean) {
-    this.TodoUpdateStatus.emit({_id, is_complated});
+    this.TodoUpdateStatus.emit({ _id, is_complated });
   }
 }
