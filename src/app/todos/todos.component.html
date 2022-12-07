@@ -1,45 +1,111 @@
-<!-- <div class="container py-5 h-100">
-  <div class="row d-flex justify-content-center align-items-center h-100">
-    <div class="col col-lg-12 col-xl-7">
-      <div class="card rounded-3">
-        <div class="card-body p-4">
-          <h4 class="text-center my-3 pb-3">To Do App</h4>
-          <table class="table mb-4">
-            <thead>
-              <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Todo item</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
-              </tr>
-              <todo
-                *ngFor="let todo of todos"
-                [todo]="todo"
-                (TodoDelete)="deleteTodo($event)"
-                (TodoUpdateStatus)="
-                  updateStatusTodo($event._id, $event.is_complated)
-                "
-              ></todo>
-            </thead>
-            <div></div>
-            <tbody></tbody>
-          </table>
+<section class="vh-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-12 col-xl-10">
+        <div class="card mask-custom">
+          <div class="card-body p-4 text-white">
+            <div class="text-center pt-3 pb-2">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                alt="Check"
+                width="60"
+              />
+              <h2 class="my-4">Task List</h2>
+              <form (submit)="addTodo()">
+                <input
+                  class="input"
+                  type="text"
+                  [(ngModel)]="title"
+                  name="title"
+                  minlength="5"
+                  min="3"
+                  placeholder="Enter task name"
+                  style="
+                    width: 250px;
+                    border-radius: 25px;
+                    border-style: none;
+                    background: rgb(148, 146, 236);
+                    border-inline: none;
+                    padding-left: 25px;
+                    height: 40px;
+                    margin-bottom: 15px;
+                  "
+                />
+              </form>
+            </div>
+
+            <table class="table text-white mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">Team Member</th>
+                  <th scope="col">Task</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-normal" *ngFor="let todo of todos">
+                  <th>
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                      alt="avatar 1"
+                      style="width: 45px; height: auto"
+                    />
+                    <span class="ms-2">{{ todo.user }}</span>
+                  </th>
+                  <td class="align-middle">
+                    <span>{{ todo.title }}</span>
+                  </td>
+                  <td class="align-middle">
+                    <h6 class="mb-0">
+                      <span class="badge bg-danger">{{
+                        todo.is_complated
+                      }}</span>
+                    </h6>
+                  </td>
+                  <td class="align-middle">
+                    <button
+                      class="badge"
+                      style="
+                        border-style: none;
+                        background-color: aqua;
+                        max-width: 55px;
+                      "
+                      [routerLink]="['/edit-todo', todo._id]"
+                    >
+                      <i class="fas fa-balance-scale" aria-hidden="true"></i
+                      >Edit
+                    </button>
+                    <button
+                      class="badge bg-danger"
+                      style="
+                        margin-left: 5px;
+                        border-style: none;
+                        max-width: 55px;
+                      "
+                      (click)="deleteTodo(todo._id)"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      class="badge"
+                      style="
+                        border-style: none;
+                        background-color: green;
+                        max-width: 95px;
+                        margin-left: 5px;
+                      "
+                      (click)="updateStatusTodo(todo._id, todo.is_complated)"
+                    >
+                      Change Status
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div> -->
-<div class="wrapper">
-  <div class="task-input">
-    <input type="text" placeholder="Add a New Task + Enter" />
-  </div>
-  <div class="controls">
-    <div class="filters">
-      <span class="active" id="all">All</span>
-      <span id="pending">Pending</span>
-      <span id="completed">Completed</span>
-    </div>
-    <button class="clear-btn">Clear All</button>
-  </div>
-  <ul class="task-box"></ul>
-</div>
+</section>

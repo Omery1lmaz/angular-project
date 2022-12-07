@@ -1,39 +1,36 @@
-<section class="vh-100" style="background-color: #eee" e>
+<section class="vh-100 gradient-custom-2">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-9 col-xl-7">
-        <div class="card rounded-3">
-          <div class="card-body p-4">
-            <h4 class="text-center my-3 pb-3">To Do App</h4>
-
-            <form
-              class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
-            >
-              <div class="col-12 width-100%">
-                <div class="form-outline">
-                  <div class="row width-600 justify-content-beetwen">
-                    <label class="form-label" for="form1">Todo Name</label>
-                    <input
-                      *ngIf="todo"
-                      type="text"
-                      id="form1"
-                      name="todo"
-                      value="{{ todo.title }}"
-                      class="form-control"
-                      [(ngModel)]="todo.title"
-                      min="5"
-                    />
-                    <button
-                      type="submit"
-                      class="btn btn-primary d-flex justify-content-space-beetwen"
-                      (click)="editTodo()"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
+      <div class="col-md-12 col-xl-10">
+        <div class="card mask-custom" style="margin: max250px">
+          <div class="card-body p-4 text-white">
+            <div class="text-center pt-3 pb-2">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                alt="Check"
+                width="60"
+              />
+              <h2 class="my-4">Edit Task</h2>
+              <form action="submit" (submit)="editTodo()">
+                <input
+                  class="input"
+                  type="text"
+                  value="{{ todo.title }}"
+                  [(ngModel)]="todo.title"
+                  name="title"
+                  style="
+                    width: 250px;
+                    border-radius: 25px;
+                    border-style: none;
+                    background: rgb(148, 146, 236);
+                    border-inline: none;
+                    padding-left: 25px;
+                    height: 40px;
+                  "
+                />
+                <button class="button">Save</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

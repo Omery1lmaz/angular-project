@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Todo } from '../todo';
-import { TodoService } from '../todo.service';
-
+import { Todo } from 'src/interfaces/interfaces';
+import { TodoService } from 'src/services/todo.service';
 @Component({
   selector: 'todo-detail',
   templateUrl: './todo-detail.component.html',
@@ -17,13 +16,15 @@ export class TodoDetailComponent {
     private _router: Router
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as string;
-    this.todo = (await this.todoservice.getTodo(this.id)) as Todo;
+    this.todoservice.getTodo(this.id).then((res) => {
+      this.todo = res as Todo;
+    });
   }
-  async editTodo() {
-    await this.todoservice
+  editTodo() {
+    this.todoservice
       .editTodo(this.todo._id, this.todo.title)
-      .then(() => this._router.navigate(['/'], { relativeTo: this.route }));
+      .then(() => this._router.navigate(['/']));
   }
 }
