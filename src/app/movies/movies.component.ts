@@ -24,7 +24,7 @@ export class MoviesComponent {
     this.todos = (await this.getTodos()) as Todo[];
   }
   ngAfterViewChecked() {
-    console.log('todo ', this.title);
+    console.log('todo 1', this.todos);
   }
   private async getTodos() {
     return await this.todoService.getTodos();
@@ -44,7 +44,7 @@ export class MoviesComponent {
   }
   public async updateStatusTodo(id: string, is_complated: boolean) {
     console.log(id, !is_complated);
-    const res = await this.todoService.updateTodo(id, !is_complated);
+    await this.todoService.updateTodo(id, !is_complated);
     // this.todos = JSON.parse(JSON.stringify(this.getTodos()));
     this.getTodos().then((res) => (this.todos = res as Todo[]));
   }
