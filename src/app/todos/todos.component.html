@@ -53,7 +53,14 @@
                     />
                     <span class="ms-2">{{ todo.user }}</span>
                   </th>
-                  <td class="align-middle">
+                  <td
+                    [ngStyle]="{
+                      'text-decoration-line': !todo.is_complated
+                        ? 'line-through'
+                        : 'none'
+                    }"
+                    style
+                  >
                     <span>{{ todo.title }}</span>
                   </td>
                   <td class="align-middle">
