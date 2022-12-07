@@ -1,7 +1,12 @@
-<tr class="width" *ngIf="todo.is_complated">
+<tr class="width" (click)="updateStatus(todo._id, todo.is_complated)">
   <th scope="row">{{ todo._id }}</th>
   <td>{{ todo.title }}</td>
-  <td>{{ todo.iscomplated }}</td>
+
+  <ng-container *ngIf="todo.is_complated == true; else elseTemplate">
+    <td>It's okey</td>
+  </ng-container>
+  <ng-template #elseTemplate> It's pending </ng-template>
+
   <td>
     <button
       type="submit"
@@ -10,13 +15,8 @@
     >
       Delete
     </button>
-    <button
-      type="submit"
-      class="btn btn-success ms-1"
-      (click)="updateStatus(todo._id, todo.is_complated)"
-    >
-      Finished
+    <button type="submit" class="btn btn-success ms-1" routerLink="params">
+      Update
     </button>
   </td>
 </tr>
-

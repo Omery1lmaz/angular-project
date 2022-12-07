@@ -25,7 +25,6 @@ export class TodoService {
     // console.log(res);
     // return res;
     try {
-      console.log('no error');
       return await Bucket.data.getAll(environment.Bucket_Id);
     } catch (error) {
       throw new Error('error');

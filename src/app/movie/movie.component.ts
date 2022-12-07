@@ -8,16 +8,20 @@ import { TodoService } from '../todo.service';
 })
 export class MovieComponent {
   @Input() todo: any;
-
+  params: string;
   @Output() TodoDelete = new EventEmitter();
   @Output() TodoUpdateStatus: EventEmitter<{
     _id: string;
     is_complated: boolean;
   }> = new EventEmitter();
-  constructor() {}
-
+  constructor() {
+    this.params = `/todo/${this.todo._id}`;
+  }
+  ngAfterViewChecked() {
+    console.log('todo 1', this.todo);
+  }
 
   updateStatus(_id: string, is_complated: boolean) {
-    this.TodoUpdateStatus.emit({_id, is_complated});
+    this.TodoUpdateStatus.emit({ _id, is_complated });
   }
 }
