@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Todo } from '../todo';
-import { TodoService } from '../todo.service';
+import { Todo } from 'src/interfaces/interfaces';
+import { TodoService } from 'src/services/todo.service';
 @Component({
   selector: 'movies',
   templateUrl: './todos.component.html',
@@ -10,42 +10,43 @@ export class TodosComponent {
   todos!: Todo[];
   title: string = '';
 
-  constructor(private todoService: TodoService) {
-    // this.todos = [
-    //   {
-    //     is_complated: false,
-    //     _id: '',
-    //     title: '',
-    //   },
-    // ];
-    todoService = new TodoService();
-  }
+  constructor(private todoService: TodoService) {}
   async ngOnInit() {
-    this.todos = (await this.getTodos()) as Todo[];
+    this.todoService
+      .getTodos()
+      .then((res) => (this.todos = res))
+      .catch((err) => alert(err.message0));
   }
-  ngAfterViewChecked() {
-    console.log('todo 1', this.todos);
-  }
-  private async getTodos() {
-    return await this.todoService.getTodos();
-  }
+
   async addTodo(title: string) {
     console.log('titlee', title);
     console.log('titlee');
-    await this.todoService.addTodo(title);
-    this.getTodos().then((res) => (this.todos = res as Todo[]));
+    this.todoService.addTodo(title).then((res) => this.todos.push(res));
     this.title = '';
   }
-  public async deleteTodo(id: string) {
-    await this.todoService.deleteTodo(id);
-    // this.todos = JSON.parse(JSON.stringify(this.getTodos()));
-    this.getTodos().then((res) => (this.todos = res as Todo[]));
-    console.log(this.todos, 'deleteeeee');
+  deleteTodo(id: string) {
+    this.todoService
+      .deleteTodo(id)
+      .then(
+        () =>
+          (this.todos = JSON.parse(
+            JSON.stringify(this.todos.filter((todo) => todo._id != id))
+          ))
+      );
   }
-  public async updateStatusTodo(id: string, is_complated: boolean) {
+  updateStatusTodo(id: string, is_complated: boolean) {
     console.log(id, !is_complated);
-    await this.todoService.updateTodo(id, !is_complated);
-    // this.todos = JSON.parse(JSON.stringify(this.getTodos()));
-    this.getTodos().then((res) => (this.todos = res as Todo[]));
+    this.todoService.updateTodo(id, !is_complated).then((res) =>
+      JSON.parse(
+        JSON.stringify(
+          this.todos.map((todo) => {
+            if (todo._id == id) {
+              todo.is_complated = !is_complated;
+            }
+            return todo;
+          })
+        )
+      )
+    );
   }
 }
