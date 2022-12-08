@@ -68,7 +68,7 @@
                           'false-status-todo': !todo.is_complated
                         }"
                         class="badge"
-                        >{{ todo.is_complated }}</span
+                        >{{ todo.is_complated | todoStatus }}</span
                       >
                     </h6>
                   </td>
@@ -77,7 +77,7 @@
                       class="badge"
                       style="
                         border-style: none;
-                        background-color: #f4e022;
+                        background-color: #353b6e;
                         max-width: 55px;
                       "
                       [routerLink]="['/edit-todo', todo._id]"

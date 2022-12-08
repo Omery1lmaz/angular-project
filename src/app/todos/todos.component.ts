@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { Todo } from 'src/interfaces/interfaces';
 import { TodoService } from 'src/services/todo.service';
+
 @Component({
   selector: 'movies',
   templateUrl: './todos.component.html',
@@ -11,7 +12,7 @@ export class TodosComponent {
   title: string = '';
 
   constructor(private todoService: TodoService) {}
-  async ngOnInit() {
+  ngOnInit() {
     this.todoService
       .getTodos()
       .then((res) => {
@@ -26,6 +27,7 @@ export class TodosComponent {
   sortTodos(): void {
     this.todos.sort((a, b) => Number(b.is_complated) - Number(a.is_complated));
   }
+
   addTodo() {
     console.log('titlee', this.title);
     console.log('titlee');
