@@ -25,10 +25,10 @@
   color: black;
 }
 .false-status-todo {
-  background-color: red;
+  background-color:  #27296d;
 }
 .status-btn {
-  background-color: #7e40f6;
+  background-color: red;
 }
 ::placeholder {
   color: aliceblue;

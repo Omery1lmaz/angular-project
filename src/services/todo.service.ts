@@ -26,7 +26,6 @@ export class TodoService {
     return Bucket.data.insert(environment.Bucket_Id, {
       title: title,
       is_complated: false,
-      user: 'Omer',
     });
   }
 

@@ -37,9 +37,16 @@
 .input {
   outline: none;
   color: aliceblue;
+  width: 250px;
+  border-radius: 25px;
+  border-style: none;
+  background: rgb(148, 146, 236);
+  border-inline: none;
+  padding-left: 25px;
+  height: 40px;
 }
 ::placeholder {
-  color:     aliceblue;
+  color: aliceblue;
   opacity: 1; /* Firefox */
   font-size: 15px;
 }

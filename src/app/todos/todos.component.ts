@@ -25,7 +25,7 @@ export class TodosComponent {
     console.log('title', this.title);
   }
   sortTodos(): void {
-    this.todos.sort((a, b) => Number(b.is_complated) - Number(a.is_complated));
+    this.todos.sort((a, b) => Number(a.is_complated) - Number(b.is_complated));
   }
 
   addTodo() {
