@@ -20,17 +20,8 @@
                   minlength="5"
                   min="3"
                   placeholder="Enter task name"
-                  style="
-                    width: 250px;
-                    border-radius: 25px;
-                    border-style: none;
-                    background: rgb(148, 146, 236);
-                    border-inline: none;
-                    padding-left: 25px;
-                    height: 40px;
-                    margin-bottom: 15px;
-                  "
                 />
+                <button class="button">Save</button>
               </form>
             </div>
 
@@ -74,36 +65,21 @@
                   </td>
                   <td class="align-middle">
                     <button
-                      class="badge"
-                      style="
-                        border-style: none;
-                        background-color: #353b6e;
-                        max-width: 55px;
-                      "
+                      class="badge edit-todo-btn"
                       [routerLink]="['/edit-todo', todo._id]"
                     >
                       <i class="fas fa-balance-scale" aria-hidden="true"></i
                       >Edit
                     </button>
                     <button
-                      class="badge bg-danger"
-                      style="
-                        margin-left: 5px;
-                        border-style: none;
-                        max-width: 55px;
-                      "
+                      class="badge bg-danger delete-todo-btn"
+                      style=""
                       (click)="deleteTodo(todo._id)"
                     >
                       Delete
                     </button>
                     <button
-                      class="badge"
-                      style="
-                        border-style: none;
-                        background-color: blueviolet;
-                        max-width: 95px;
-                        margin-left: 5px;
-                      "
+                      class="badge change-status-btn"
                       (click)="updateStatusTodo(todo._id, todo.is_complated)"
                     >
                       Change Status
