@@ -1,4 +1,4 @@
-import { Component, Pipe, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 import { Todo } from 'src/interfaces/interfaces';
 import { TodoService } from 'src/services/todo.service';
 
@@ -21,16 +21,16 @@ export class TodosComponent {
       })
       .catch((err) => alert(err.message0));
   }
-  ngOnChanges(): void {
-    console.log('title', this.title);
-  }
-  sortTodos(): void {
-    this.todos.sort((a, b) => Number(a.is_complated) - Number(b.is_complated));
+
+  sortTodos(): Todo[] {
+    return this.todos.sort(
+      (a, b) =>
+        <any>new Date(b.created_at_time ? b.created_at_time : '') -
+        <any>new Date(a.created_at_time ? a.created_at_time : '')
+    );
   }
 
   addTodo() {
-    console.log('titlee', this.title);
-    console.log('titlee');
     this.todoService
       .addTodo(this.title)
       .then((res) => {
@@ -60,7 +60,7 @@ export class TodosComponent {
           JSON.stringify(
             this.todos.map((todo) => {
               if (todo._id == id) {
-                todo.is_complated = !is_complated;
+                todo.is_complated != is_complated;
               }
               return todo;
             })

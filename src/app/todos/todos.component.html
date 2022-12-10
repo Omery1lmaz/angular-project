@@ -11,18 +11,6 @@
                 width="60"
               />
               <h2 class="my-4">Task List</h2>
-              <form (submit)="addTodo()">
-                <input
-                  class="input"
-                  type="text"
-                  [(ngModel)]="title"
-                  name="title"
-                  minlength="5"
-                  min="3"
-                  placeholder="Enter task name"
-                />
-                <button class="button">Save</button>
-              </form>
             </div>
 
             <table class="table text-white mb-0">
@@ -35,6 +23,7 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- <app-complated-todo *ngFor="let todo of todos"></app-complated-todo> -->
                 <tr class="fw-normal" *ngFor="let todo of todos">
                   <th>
                     <img
@@ -55,8 +44,8 @@
                     <h6 class="mb-0">
                       <span
                         [ngClass]="{
-                          'status-btn': !todo.is_complated,
-                          'false-status-todo': todo.is_complated
+                          'status-btn': todo.is_complated,
+                          'false-status-todo': !todo.is_complated
                         }"
                         class="badge"
                         >{{ todo.is_complated | todoStatus }}</span
@@ -66,7 +55,7 @@
                   <td class="align-middle">
                     <button
                       class="badge edit-todo-btn"
-                      [routerLink]="['/edit-todo', todo._id]"
+                      [routerLink]="['/todo', todo._id]"
                     >
                       <i class="fas fa-balance-scale" aria-hidden="true"></i
                       >Edit

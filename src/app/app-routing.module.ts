@@ -7,7 +7,8 @@ import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { TodosComponent } from './todos/todos.component';
 
 const routes: Routes = [
-  { path: 'edit-todo/:id', component: TodoDetailComponent },
+  { path: 'todo/add', component: TodoDetailComponent },
+  { path: 'todo/:id', component: TodoDetailComponent },
   { path: '', component: TodosComponent },
   { path: '**', component: ErrorComponent },
 ];

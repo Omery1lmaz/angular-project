@@ -10,16 +10,33 @@
                 alt="Check"
                 width="60"
               />
-              <h2 class="my-4">Edit Task</h2>
-              <form action="submit" (submit)="editTodo()">
+              <h2 class="my-4" *ngIf="id; else addTitle">Edit Task</h2>
+              <ng-template #addTitle>
+                <h2 class="my-4">Add Task</h2>
+              </ng-template>
+              <form (submit)="submitHandler()" [formGroup]="myForm">
                 <input
                   class="input"
                   type="text"
-                  value="{{ todo.title }}"
-                  [(ngModel)]="todo.title"
+                  formControlName="title"
+                  [(ngModel)]="myForm.value.title"
+                  value="{{ myForm.value.title }}"
                   name="title"
                 />
-                <button class="button">Save</button>
+                <select class="option" formControlName="status">
+                  <option value="false">Pending</option>
+                  <option value="true">Done</option>
+                </select>
+                <button
+                  type="submit"
+                  class="button"
+                  *ngIf="id; else todoAddButton"
+                >
+                  Edit
+                </button>
+                <ng-template #todoAddButton>
+                  <button type="submit" class="button">Add</button>
+                </ng-template>
               </form>
             </div>
           </div>
@@ -28,3 +45,4 @@
     </div>
   </div>
 </section>
+<!-- myForm.value.title ? addTodo() : editTodo() -->
