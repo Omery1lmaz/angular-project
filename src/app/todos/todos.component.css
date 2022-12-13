@@ -16,6 +16,20 @@
     rgba(80, 139, 252, 1)
   );
 }
+.false-todo {
+  background-color: red;
+  opacity: 0.4;
+}
+.false-todo-expired {
+  position: absolute;
+  right: 50%;
+  font-size: large;
+  color: black;
+  opacity: 1;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 1;
+}
 .input {
   outline: none;
   color: aliceblue;
@@ -25,7 +39,7 @@
   color: black;
 }
 .false-status-todo {
-  background-color:  #27296d;
+  background-color: #27296d;
 }
 .status-btn {
   background-color: red;
@@ -67,6 +81,16 @@
   width: 75px;
   margin-left: 9px;
   border-radius: 25px;
+  border-style: none;
+  color: aliceblue;
+  height: 45px;
+}
+
+.add-todo-button {
+  background-color: rgba(126, 64, 246, 1);
+  min-width: 120px;
+  margin-left: 9px;
+  border-radius: 15px;
   border-style: none;
   color: aliceblue;
   height: 45px;

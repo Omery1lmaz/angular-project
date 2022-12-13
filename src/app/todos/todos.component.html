@@ -11,71 +11,91 @@
                 width="60"
               />
               <h2 class="my-4">Task List</h2>
+              <button class="add-todo-button" [routerLink]="['/todo/add']">
+                Add Todo
+              </button>
             </div>
+            <spinner
+              [(ngModel)]="todos"
+              *ngIf="!todos; else Todos"
+              class="d-flex justify-content-center"
+            ></spinner>
 
-            <table class="table text-white mb-0">
-              <thead>
-                <tr>
-                  <th scope="col">Team Member</th>
-                  <th scope="col">Task</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <app-complated-todo *ngFor="let todo of todos"></app-complated-todo> -->
-                <tr class="fw-normal" *ngFor="let todo of todos">
-                  <th>
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                      alt="avatar 1"
-                      style="width: 45px; height: auto"
-                    />
-                    <span class="ms-2">{{ todo.user }}</span>
-                  </th>
-                  <td
-                    [ngClass]="{
-                      'false-todo': todo.is_complated
-                    }"
+            <ng-template #Todos>
+              <table class="table text-white mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Team Member</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <app-complated-todo *ngFor="let todo of todos"></app-complated-todo> -->
+                  <tr
+                    class="fw-normal"
+                    *ngFor="let todo of todos"
+                    [ngClass]="{ 'false-todo': todo.is_complated }"
                   >
-                    <span>{{ todo.title }}</span>
-                  </td>
-                  <td class="align-middle">
-                    <h6 class="mb-0">
-                      <span
-                        [ngClass]="{
-                          'status-btn': todo.is_complated,
-                          'false-status-todo': !todo.is_complated
-                        }"
-                        class="badge"
-                        >{{ todo.is_complated | todoStatus }}</span
+                    <th>
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                        alt="avatar 1"
+                        style="width: 45px; height: auto"
+                      />
+                      <span class="ms-2">{{ todo.user }}</span>
+                    </th>
+                    <td
+                      [ngClass]="{
+                        'false-todo': todo.is_complated
+                      }"
+                    >
+                      <span>{{ todo.title }}</span>
+                    </td>
+                    <td class="align-middle">
+                      <h6 class="mb-0">
+                        <span
+                          [ngClass]="{
+                            'status-btn': todo.is_complated,
+                            'false-status-todo': !todo.is_complated
+                          }"
+                          class="badge"
+                          >{{ todo.status?.status||'' }}</span
+                        >
+                      </h6>
+                    </td>
+                    <td class="align-middle">
+                      <button
+                        class="badge edit-todo-btn"
+                        [routerLink]="['/todo', todo._id]"
                       >
-                    </h6>
-                  </td>
-                  <td class="align-middle">
-                    <button
-                      class="badge edit-todo-btn"
-                      [routerLink]="['/todo', todo._id]"
-                    >
-                      <i class="fas fa-balance-scale" aria-hidden="true"></i
-                      >Edit
-                    </button>
-                    <button
-                      class="badge bg-danger delete-todo-btn"
-                      (click)="deleteTodo(todo._id)"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      class="badge change-status-btn"
-                      (click)="updateStatusTodo(todo._id, todo.is_complated)"
-                    >
-                      Change Status
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i
+                        >Edit
+                      </button>
+                      <button
+                        class="badge bg-danger delete-todo-btn"
+                        (click)="deleteTodo(todo._id)"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        class="badge change-status-btn"
+                        (click)="updateStatusTodo(todo._id, todo.is_complated)"
+                      >
+                        Change Status
+                      </button>
+                      <a
+                        *ngIf="todo.is_complated"
+                        [ngClass]="{ 'false-todo-expired': todo.is_complated }"
+                      >
+                        Expired
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
           </div>
         </div>
       </div>

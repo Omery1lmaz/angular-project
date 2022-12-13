@@ -1,0 +1,66 @@
+<section class="vh-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-12 col-xl-10">
+        <div class="card mask-custom" style="margin: max250px">
+          <div class="card-body p-4 text-white">
+            <div class="text-center pt-3 pb-2">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                alt="Check"
+                width="60"
+              />
+              <h2 class="my-4" *ngIf="id; else addTitle">Edit Task</h2>
+              <ng-template #addTitle>
+                <h2 class="my-4">Add Task</h2>
+              </ng-template>
+              <spinner *ngIf="!todo && id; else form"></spinner>
+              <ng-template #form>
+                <form (submit)="submitHandler()" [formGroup]="myForm">
+                  <input
+                    class="input"
+                    type="text"
+                    formControlName="title"
+                    [(ngModel)]="title"
+                    name="title"
+                  />
+                  <select
+                    [(ngModel)]="todo.status"
+                    class="option"
+                    formControlName="status"
+                  >
+                    <option
+                      *ngFor="let status of status"
+                      [value]="status._id"
+                    >
+                      {{ status.status }}
+                    </option>
+                  </select>
+                  <button
+                    type="submit"
+                    class="button"
+                    *ngIf="id; else todoAddButton"
+                  >
+                    Edit
+                  </button>
+                  <ng-template #todoAddButton>
+                    <button type="submit" class="button">Add</button>
+                  </ng-template>
+                </form>
+                <div class="row">
+                  <p *ngIf="!myForm.controls['title'].valid && myForm.touched">
+                    title must be at least 4 characters long.
+                  </p>
+                  <p *ngIf="!myForm.controls['status'].valid && myForm.touched">
+                    You must choose a status
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- myForm.value.title ? addTodo() : editTodo() -->

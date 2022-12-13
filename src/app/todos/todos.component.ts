@@ -18,6 +18,7 @@ export class TodosComponent {
       .then((res) => {
         this.todos = res;
         this.sortTodos();
+        console.log(this.todos);
       })
       .catch((err) => alert(err.message0));
   }
@@ -25,20 +26,9 @@ export class TodosComponent {
   sortTodos(): Todo[] {
     return this.todos.sort(
       (a, b) =>
-        <any>new Date(b.created_at_time ? b.created_at_time : '') -
-        <any>new Date(a.created_at_time ? a.created_at_time : '')
+        <any>new Date(a.created_at_time) - <any>new Date(b.created_at_time) &&
+        <any>a.is_complated - <any>b.is_complated
     );
-  }
-
-  addTodo() {
-    this.todoService
-      .addTodo(this.title)
-      .then((res) => {
-        this.todos.push(res);
-        this.sortTodos();
-      })
-      .catch((err) => alert(err.message0));
-    this.title = '';
   }
   deleteTodo(id: string) {
     this.todoService
@@ -51,21 +41,26 @@ export class TodosComponent {
       })
       .catch((err) => alert(err.message0));
   }
+
+  toString(id: string, is_complated: boolean): JSON {
+    return JSON.parse(
+      JSON.stringify(
+        this.todos.map((todo) => {
+          if (todo._id == id) {
+            todo.is_complated = !is_complated;
+          }
+          return todo;
+        })
+      )
+    );
+  }
   updateStatusTodo(id: string, is_complated: boolean) {
     console.log(id, !is_complated);
     this.todoService
       .updateTodo(id, !is_complated)
       .then(() => {
-        JSON.parse(
-          JSON.stringify(
-            this.todos.map((todo) => {
-              if (todo._id == id) {
-                todo.is_complated != is_complated;
-              }
-              return todo;
-            })
-          )
-        );
+        this.toString(id, is_complated);
+
         this.sortTodos();
       })
       .catch((err) => alert(err.message0));

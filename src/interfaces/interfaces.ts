@@ -3,5 +3,11 @@ export interface Todo {
   title: string;
   is_complated: boolean;
   user?: string;
-  created_at_time?: Date;
+  status?: durum;
+  created_at_time: Date;
+}
+
+export interface durum {
+  _id?: string;
+  status?: string;
 }

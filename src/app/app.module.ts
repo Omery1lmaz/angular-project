@@ -5,31 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { NgModel } from '@angular/forms';
-import { FormBuilder, FormGroup,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { TodosComponent } from './todos/todos.component';
 import { ErrorComponent } from './error/error.component';
 import { TodoStatusPipe } from 'src/pipes/todo_status.pipe';
-import { ComplatedTodoComponent } from './complated-todo/complated-todo.component';
-import { AddEditTodoComponent } from './add-edit-todo/add-edit-todo.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { TodoandDetailComponent } from './todo-and-todo-detail/todo-and-todo-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoDetailComponent,
     TodosComponent,
     ErrorComponent,
     TodoStatusPipe,
-    ComplatedTodoComponent,
-    AddEditTodoComponent,
+    SpinnerComponent,
+    TodoandDetailComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
