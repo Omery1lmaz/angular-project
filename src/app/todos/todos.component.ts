@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { Todo } from 'src/interfaces/interfaces';
+import { Component, ComponentFactoryResolver } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { durum, Todo } from 'src/interfaces/interfaces';
+import { TodoStatusPipe } from 'src/pipes/todo_status.pipe';
 import { TodoService } from 'src/services/todo.service';
 
 @Component({
@@ -26,8 +28,9 @@ export class TodosComponent {
   sortTodos(): Todo[] {
     return this.todos.sort(
       (a, b) =>
-        <any>new Date(a.created_at_time) - <any>new Date(b.created_at_time) &&
-        <any>a.is_complated - <any>b.is_complated
+        <any>new Date(b.created_at_time) - <any>new Date(a.created_at_time) &&
+        <any>new Number((a.status?.status as string) == 'done' ? true : false) -
+          <any>new Number((b.status?.status as string) == 'done' ? true : false)
     );
   }
   deleteTodo(id: string) {
@@ -42,25 +45,35 @@ export class TodosComponent {
       .catch((err) => alert(err.message0));
   }
 
-  toString(id: string, is_complated: boolean): JSON {
+  toString(id: string, status: string): JSON {
+    console.log(status, 'status');
     return JSON.parse(
       JSON.stringify(
         this.todos.map((todo) => {
           if (todo._id == id) {
-            todo.is_complated = !is_complated;
+            if (status == environment.Done_Status_Id) {
+              todo.status?.status ? (todo.status.status = 'pending') : '';
+              todo.status?._id
+                ? (todo.status._id = environment.Pending_Status_Id)
+                : '';
+            } else {
+              console.log('done');
+              if (todo.status?.status && todo.status?._id) {
+                todo.status.status = 'done';
+                todo.status._id = environment.Done_Status_Id;
+              }
+            }
           }
           return todo;
         })
       )
     );
   }
-  updateStatusTodo(id: string, is_complated: boolean) {
-    console.log(id, !is_complated);
+  updateStatusTodo(id: string, status: string) {
     this.todoService
-      .updateTodo(id, !is_complated)
+      .updateTodo(id, status)
       .then(() => {
-        this.toString(id, is_complated);
-
+        this.toString(id, status);
         this.sortTodos();
       })
       .catch((err) => alert(err.message0));

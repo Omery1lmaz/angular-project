@@ -42,13 +42,20 @@ export class TodoService {
     });
   }
 
-  updateTodo(id: string, is_complated: boolean): Promise<Todo> {
-    return Bucket.data.patch(environment.Bucket_Id, id, { is_complated });
+  updateTodo(id: string, statusId: string): Promise<Todo> {
+    if (statusId == environment.Done_Status_Id) {
+      statusId = environment.Pending_Status_Id;
+    } else {
+      statusId = environment.Done_Status_Id;
+    }
+
+    return Bucket.data.patch(environment.Bucket_Id, id, { status: statusId });
   }
   editTodo(id: string, title: string, status: string): Promise<Todo> {
+    console.log('editTodo',  status);
     return Bucket.data.patch(environment.Bucket_Id, id, {
       title,
-      status: status as durum,
+      status: status as string,
     });
   }
   deleteTodo(id: string) {

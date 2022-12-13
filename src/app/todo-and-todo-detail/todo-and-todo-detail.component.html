@@ -24,14 +24,10 @@
                     [(ngModel)]="title"
                     name="title"
                   />
-                  <select
-                    [(ngModel)]="todo.status"
-                    class="option"
-                    formControlName="status"
-                  >
+                  <select class="option" formControlName="status">
                     <option
                       *ngFor="let status of status"
-                      [value]="status._id"
+                      [value]="status._id ? status._id : selectedOption"
                     >
                       {{ status.status }}
                     </option>

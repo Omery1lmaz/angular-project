@@ -4,7 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'todoStatus',
 })
 export class TodoStatusPipe implements PipeTransform {
-  transform(value: boolean, ...args: any[]) {
-    return value ? 'Done' : 'Pending';
+  transform(value: string, ...args: any[]) {
+    if (value == 'done') {
+      return 'true';
+    } else if (value == 'pending') {
+      return 'false';
+    }
+    return 'false';
   }
 }

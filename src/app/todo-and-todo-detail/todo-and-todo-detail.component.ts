@@ -14,6 +14,7 @@ export class TodoandDetailComponent implements OnInit, DoCheck {
   myForm!: FormGroup;
   status!: durum[];
   title!: string;
+  selectedOption: string = 'Value seçiniz';
   constructor(
     private _fb: FormBuilder,
     private route: ActivatedRoute,
@@ -21,7 +22,7 @@ export class TodoandDetailComponent implements OnInit, DoCheck {
     private _router: Router
   ) {}
   ngDoCheck(): void {
-    console.log(this.status, 'status');
+    console.log(this.myForm.value.status, 'status');
   }
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as string;
@@ -29,6 +30,12 @@ export class TodoandDetailComponent implements OnInit, DoCheck {
       title: ['', [Validators.required, Validators.minLength(3)]],
       status: [this.status, [Validators.required]],
     });
+    this.todoservice
+      .getStatus()
+      .then((res) => {
+        this.status = res;
+      })
+      .catch(() => alert('Statusler getirilemedi'));
     if (this.id) {
       this.todoservice
         .getTodo(this.id)
@@ -38,16 +45,10 @@ export class TodoandDetailComponent implements OnInit, DoCheck {
           this.todo = res as Todo;
         })
         .catch(() => {
-          alert('yanlış id veya todo getirilemei');
+          alert('yanlış id veya todo getirilemedi');
           this._router.navigateByUrl('/');
         });
     }
-    this.todoservice
-      .getStatus()
-      .then((res) => {
-        this.status = res;
-      })
-      .catch(() => alert('Statusler getirilemedi'));
   }
 
   submitHandler() {

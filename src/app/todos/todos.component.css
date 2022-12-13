@@ -16,6 +16,11 @@
     rgba(80, 139, 252, 1)
   );
 }
+.expired-text {
+  margin-left: 15px;
+  text-decoration: none;
+  color: white;
+}
 .false-todo {
   background-color: red;
   opacity: 0.4;
@@ -43,6 +48,7 @@
 }
 .status-btn {
   background-color: red;
+  display: none;
 }
 ::placeholder {
   color: aliceblue;

@@ -36,7 +36,7 @@
                   <tr
                     class="fw-normal"
                     *ngFor="let todo of todos"
-                    [ngClass]="{ 'false-todo': todo.is_complated }"
+                    [ngClass]="{ 'false-todo': todo.status?.status == 'done' }"
                   >
                     <th>
                       <img
@@ -48,7 +48,7 @@
                     </th>
                     <td
                       [ngClass]="{
-                        'false-todo': todo.is_complated
+                        'false-todo': todo.status?.status == 'done'
                       }"
                     >
                       <span>{{ todo.title }}</span>
@@ -57,11 +57,12 @@
                       <h6 class="mb-0">
                         <span
                           [ngClass]="{
-                            'status-btn': todo.is_complated,
-                            'false-status-todo': !todo.is_complated
+                            'status-btn': todo.status?.status == 'done',
+                            'false-status-todo':
+                              todo.status?.status == 'pending'
                           }"
                           class="badge"
-                          >{{ todo.status?.status||'' }}</span
+                          >{{ todo.status?.status }}</span
                         >
                       </h6>
                     </td>
@@ -81,16 +82,21 @@
                       </button>
                       <button
                         class="badge change-status-btn"
-                        (click)="updateStatusTodo(todo._id, todo.is_complated)"
+                        (click)="
+                          updateStatusTodo(todo._id, todo.status?._id || '')
+                        "
                       >
                         Change Status
                       </button>
                       <a
-                        *ngIf="todo.is_complated"
-                        [ngClass]="{ 'false-todo-expired': todo.is_complated }"
+                        *ngIf="todo.status?.status == 'done' as string"
+                        [ngClass]="{
+                          'false-todo-expired': todo.status?.status == 'done'
+                        }"
                       >
                         Expired
                       </a>
+                      <a class="expired-text">{{todo.created_at_time | date}}</a>
                     </td>
                   </tr>
                 </tbody>
