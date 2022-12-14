@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import * as Bucket from '@spica-devkit/bucket';
 import { durum, Todo } from 'src/interfaces/interfaces';
@@ -52,7 +51,6 @@ export class TodoService {
     return Bucket.data.patch(environment.Bucket_Id, id, { status: statusId });
   }
   editTodo(id: string, title: string, status: string): Promise<Todo> {
-    console.log('editTodo',  status);
     return Bucket.data.patch(environment.Bucket_Id, id, {
       title,
       status: status as string,

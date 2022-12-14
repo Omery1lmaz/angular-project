@@ -25,17 +25,23 @@
   color: aliceblue;
   height: 45px;
 }
+.error-text {
+  margin: auto;
+  display: block;
+}
 .option {
+  margin: auto;
+  display: block;
   outline: none;
   color: aliceblue;
-  margin-left: 15px;
-  width: 100px;
+  max-width: 250px;
   border-radius: 25px;
   border-style: none;
   background: rgb(148, 146, 236);
   border-inline: none;
-  padding-left: 25px;
   height: 40px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .button :hover {
@@ -48,6 +54,8 @@
   height: 45px;
 }
 .input {
+  margin: auto;
+  display: block;
   outline: none;
   color: aliceblue;
   width: 250px;

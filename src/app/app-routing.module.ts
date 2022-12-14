@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
 import { TodoandDetailComponent } from './todo-and-todo-detail/todo-and-todo-detail.component';
 import { TodosComponent } from './todos/todos.component';

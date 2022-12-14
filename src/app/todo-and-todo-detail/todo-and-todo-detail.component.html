@@ -17,21 +17,42 @@
               <spinner *ngIf="!todo && id; else form"></spinner>
               <ng-template #form>
                 <form (submit)="submitHandler()" [formGroup]="myForm">
-                  <input
-                    class="input"
-                    type="text"
-                    formControlName="title"
-                    [(ngModel)]="title"
-                    name="title"
-                  />
-                  <select class="option" formControlName="status">
-                    <option
-                      *ngFor="let status of status"
-                      [value]="status._id ? status._id : selectedOption"
+                  <div class="row">
+                    <input
+                      class="input"
+                      type="text"
+                      formControlName="title"
+                      [(ngModel)]="title"
+                      name="title"
+                      placeholder="Todo Name"
+                    />
+                    <p
+                      class="error-text"
+                      *ngIf="!myForm.controls['title'].valid && myForm.touched"
                     >
-                      {{ status.status }}
-                    </option>
-                  </select>
+                      title must be at least 4 characters long.
+                    </p>
+                  </div>
+                  <div class="row">
+                    <select
+                      class="option"
+                      formControlName="status"
+                      [(ngModel)]="todo.status"
+                    >
+                      <option
+                        *ngFor="let status of status"
+                        [value]="status._id"
+                      >
+                        {{ status.status }}
+                      </option>
+                    </select>
+                    <p
+                      class="error-text"
+                      *ngIf="!myForm.controls['status'].valid && myForm.touched"
+                    >
+                      You must choose a status
+                    </p>
+                  </div>
                   <button
                     type="submit"
                     class="button"
@@ -43,14 +64,6 @@
                     <button type="submit" class="button">Add</button>
                   </ng-template>
                 </form>
-                <div class="row">
-                  <p *ngIf="!myForm.controls['title'].valid && myForm.touched">
-                    title must be at least 4 characters long.
-                  </p>
-                  <p *ngIf="!myForm.controls['status'].valid && myForm.touched">
-                    You must choose a status
-                  </p>
-                </div>
               </ng-template>
             </div>
           </div>

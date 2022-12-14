@@ -1,7 +1,6 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { durum, Todo } from 'src/interfaces/interfaces';
-import { TodoStatusPipe } from 'src/pipes/todo_status.pipe';
 import { TodoService } from 'src/services/todo.service';
 
 @Component({
@@ -20,11 +19,12 @@ export class TodosComponent {
       .then((res) => {
         this.todos = res;
         this.sortTodos();
-        console.log(this.todos);
       })
-      .catch((err) => alert(err.message0));
+      .catch((err) => alert(err.message));
   }
-
+  parseProcces(item: Todo | Todo[]) {
+    return JSON.parse(JSON.stringify(item));
+  }
   sortTodos(): Todo[] {
     return this.todos.sort(
       (a, b) =>
@@ -37,36 +37,32 @@ export class TodosComponent {
     this.todoService
       .deleteTodo(id)
       .then(() => {
-        this.todos = JSON.parse(
-          JSON.stringify(this.todos.filter((todo) => todo._id != id))
+        this.todos = this.parseProcces(
+          this.todos.filter((todo) => todo._id != id)
         );
         this.sortTodos();
       })
-      .catch((err) => alert(err.message0));
+      .catch((err) => alert(err.message));
   }
 
   toString(id: string, status: string): JSON {
-    console.log(status, 'status');
-    return JSON.parse(
-      JSON.stringify(
-        this.todos.map((todo) => {
-          if (todo._id == id) {
-            if (status == environment.Done_Status_Id) {
-              todo.status?.status ? (todo.status.status = 'pending') : '';
-              todo.status?._id
-                ? (todo.status._id = environment.Pending_Status_Id)
-                : '';
-            } else {
-              console.log('done');
-              if (todo.status?.status && todo.status?._id) {
-                todo.status.status = 'done';
-                todo.status._id = environment.Done_Status_Id;
-              }
+    return this.parseProcces(
+      this.todos.map((todo) => {
+        if (todo._id == id) {
+          if (status == environment.Done_Status_Id) {
+            todo.status?.status ? (todo.status.status = 'pending') : '';
+            todo.status?._id
+              ? (todo.status._id = environment.Pending_Status_Id)
+              : '';
+          } else {
+            if (todo.status?.status && todo.status?._id) {
+              todo.status.status = 'done';
+              todo.status._id = environment.Done_Status_Id;
             }
           }
-          return todo;
-        })
-      )
+        }
+        return todo;
+      })
     );
   }
   updateStatusTodo(id: string, status: string) {
@@ -76,6 +72,6 @@ export class TodosComponent {
         this.toString(id, status);
         this.sortTodos();
       })
-      .catch((err) => alert(err.message0));
+      .catch((err) => alert(err.message));
   }
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { durum, Todo } from 'src/interfaces/interfaces';
 import { TodoService } from 'src/services/todo.service';
@@ -8,22 +8,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './todo-and-todo-detail.component.html',
   styleUrls: ['./todo-and-todo-detail.component.css'],
 })
-export class TodoandDetailComponent implements OnInit, DoCheck {
+export class TodoandDetailComponent implements OnInit {
   id!: string;
   todo!: Todo;
   myForm!: FormGroup;
   status!: durum[];
   title!: string;
-  selectedOption: string = 'Value seçiniz';
+  selectedOption: durum = {
+    status: 'pending',
+  };
   constructor(
     private _fb: FormBuilder,
     private route: ActivatedRoute,
     private todoservice: TodoService,
     private _router: Router
   ) {}
-  ngDoCheck(): void {
-    console.log(this.myForm.value.status, 'status');
-  }
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as string;
     this.myForm = this._fb.group({
@@ -83,7 +82,7 @@ export class TodoandDetailComponent implements OnInit, DoCheck {
         .then(() => this._router.navigate(['/']))
         .catch(() => alert('Todo eklenemedi '));
     } else {
-      // alert('Düzgün bir değer giriniz');
+      alert('Düzgün bir değer giriniz');
     }
   }
 }

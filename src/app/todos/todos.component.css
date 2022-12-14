@@ -23,13 +23,16 @@
 }
 .false-todo {
   background-color: red;
-  opacity: 0.4;
+  opacity: 0.5;
+}
+.title {
+  color: white;
 }
 .false-todo-expired {
   position: absolute;
   right: 50%;
   font-size: large;
-  color: black;
+  color: white;
   opacity: 1;
   text-decoration: none;
   font-weight: bold;
@@ -41,7 +44,7 @@
 }
 .false-todo {
   text-decoration-line: line-through;
-  color: black;
+  color: white;
 }
 .false-status-todo {
   background-color: #27296d;
