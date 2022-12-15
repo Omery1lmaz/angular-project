@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Status, Todo } from 'src/interfaces/interfaces';
+import { Todo } from 'src/interfaces/interfaces';
 import { TodoService } from 'src/services/todo.service';
 
 @Component({
@@ -10,13 +10,13 @@ import { TodoService } from 'src/services/todo.service';
 export class TodosComponent {
   todos!: Todo[];
 
-  constructor(private todoService: TodoService) {}
+  constructor(private _todoService: TodoService) {}
 
   getExpired(todo: Todo) {
     return new Date(todo.end_date) <= new Date();
   }
   ngOnInit() {
-    this.todoService
+    this._todoService
       .getTodos()
       .then((res) => {
         this.todos = res;
@@ -33,7 +33,7 @@ export class TodosComponent {
     );
   }
   deleteTodo(id: string) {
-    this.todoService
+    this._todoService
       .deleteTodo(id)
       .then(() => {
         this.todos = this.parseProcces(

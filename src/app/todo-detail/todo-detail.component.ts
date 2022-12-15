@@ -18,20 +18,20 @@ export class TodoandDetailComponent implements OnInit {
     status: new FormControl('', [Validators.required]),
   });
   constructor(
-    private route: ActivatedRoute,
-    private todoservice: TodoService,
+    private _route: ActivatedRoute,
+    private _todoservice: TodoService,
     private _router: Router
   ) {}
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id') as string;
-    this.todoservice
+    this.id = this._route.snapshot.paramMap.get('id') as string;
+    this._todoservice
       .getStatuses()
       .then((res) => {
         this.status = res;
       })
       .catch(() => alert('Statusler getirilemedi'));
     if (this.id) {
-      this.todoservice
+      this._todoservice
         .getTodo(this.id)
         .then((res) => {
           this.todoForm.patchValue({
@@ -53,7 +53,7 @@ export class TodoandDetailComponent implements OnInit {
   }
   editTodo() {
     if (this.todoForm.valid) {
-      this.todoservice
+      this._todoservice
         .editTodo({ id: this.id, todo: this.todoForm.value })
         .then(() => this._router.navigate(['/']))
         .catch(() => alert('Todo Editlenemedi '));
@@ -63,7 +63,7 @@ export class TodoandDetailComponent implements OnInit {
   }
   addTodo() {
     if (this.todoForm.valid) {
-      this.todoservice
+      this._todoservice
         .addTodo(this.todoForm.value)
         .then(() => this._router.navigate(['/']))
         .catch(() => alert('Todo eklenemedi '));
