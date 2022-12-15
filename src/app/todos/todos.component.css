@@ -1,15 +1,12 @@
 .gradient-custom-2 {
-  /* fallback for old browsers */
   background: #7e40f6;
 
-  /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
     to right,
     rgba(126, 64, 246, 1),
     rgba(80, 139, 252, 1)
   );
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to right,
     rgba(126, 64, 246, 1),
@@ -28,15 +25,19 @@
 .title {
   color: white;
 }
+.status-text {
+  font-size: small;
+  font-weight: 600;
+}
 .false-todo-expired {
-  position: absolute;
-  right: 50%;
+  display: flex;
+  align-items: center;
   font-size: large;
   color: white;
   opacity: 1;
   text-decoration: none;
   font-weight: bold;
-  z-index: 1;
+  z-index: 5;
 }
 .input {
   outline: none;
@@ -62,6 +63,9 @@
   border-style: none;
   background-color: #353b6e;
   max-width: 55px;
+}
+.disabled {
+  display: none;
 }
 .delete-todo-btn {
   margin-left: 5px;

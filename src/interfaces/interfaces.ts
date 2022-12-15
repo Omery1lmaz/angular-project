@@ -1,13 +1,13 @@
 export interface Todo {
   _id: string;
   title: string;
-  is_complated: boolean;
   user?: string;
-  status?: durum;
+  status?: Status;
   created_at_time: Date;
+  end_date: Date;
 }
 
-export interface durum {
+export interface Status {
   _id?: string;
   status?: string;
 }

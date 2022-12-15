@@ -10,35 +10,35 @@
                 alt="Check"
                 width="60"
               />
-              <h2 class="my-4" *ngIf="id; else addTitle">Edit Task</h2>
-              <ng-template #addTitle>
+              <ng-container *ngIf="id">
+                <h2 class="my-4">Edit Task</h2>
+              </ng-container>
+              <ng-container *ngIf="!id">
                 <h2 class="my-4">Add Task</h2>
-              </ng-template>
-              <spinner *ngIf="!todo && id; else form"></spinner>
-              <ng-template #form>
-                <form (submit)="submitHandler()" [formGroup]="myForm">
-                  <div class="row">
+              </ng-container>
+              <spinner *ngIf="!todo && id; form"></spinner>
+              <ng-container #form>
+                <form (submit)="submitHandler()" [formGroup]="todoForm">
+                  <div class="row" *ngIf="todo || !id">
                     <input
                       class="input"
                       type="text"
                       formControlName="title"
-                      [(ngModel)]="title"
                       name="title"
                       placeholder="Todo Name"
                     />
                     <p
                       class="error-text"
-                      *ngIf="!myForm.controls['title'].valid && myForm.touched"
+                      *ngIf="
+                        !todoForm.controls['title'].valid &&
+                        todoForm.controls.title.touched
+                      "
                     >
-                      title must be at least 4 characters long.
+                      title must be 4 characters or longer
                     </p>
                   </div>
-                  <div class="row">
-                    <select
-                      class="option"
-                      formControlName="status"
-                      [(ngModel)]="todo.status"
-                    >
+                  <div class="row" *ngIf="todo || !id">
+                    <select class="option" formControlName="status">
                       <option
                         *ngFor="let status of status"
                         [value]="status._id"
@@ -48,23 +48,22 @@
                     </select>
                     <p
                       class="error-text"
-                      *ngIf="!myForm.controls['status'].valid && myForm.touched"
+                      *ngIf="
+                        !todoForm.controls.status.valid &&
+                        todoForm.controls.status.touched
+                      "
                     >
                       You must choose a status
                     </p>
                   </div>
-                  <button
-                    type="submit"
-                    class="button"
-                    *ngIf="id; else todoAddButton"
-                  >
+                  <button type="submit" class="button" *ngIf="id && todo">
                     Edit
                   </button>
-                  <ng-template #todoAddButton>
+                  <ng-container *ngIf="!id">
                     <button type="submit" class="button">Add</button>
-                  </ng-template>
+                  </ng-container>
                 </form>
-              </ng-template>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -72,4 +71,3 @@
     </div>
   </div>
 </section>
-<!-- myForm.value.title ? addTodo() : editTodo() -->

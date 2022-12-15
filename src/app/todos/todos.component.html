@@ -16,7 +16,6 @@
               </button>
             </div>
             <spinner
-              [(ngModel)]="todos"
               *ngIf="!todos; else Todos"
               class="d-flex justify-content-center"
             ></spinner>
@@ -28,15 +27,18 @@
                     <th scope="col">Team Member</th>
                     <th scope="col">Task</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Starting Date</th>
+                    <th scope="col">End Date</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <app-complated-todo *ngFor="let todo of todos"></app-complated-todo> -->
                   <tr
                     class="fw-normal"
                     *ngFor="let todo of todos"
-                    [ngClass]="{ 'false-todo': todo.status?.status == 'done' }"
+                    [class.false-todo]="
+                      getExpired(todo) || todo.status?.status == 'done'
+                    "
                   >
                     <th>
                       <img
@@ -46,57 +48,45 @@
                       />
                       <span class="ms-2">{{ todo.user }}</span>
                     </th>
-                    <td
-                      [ngClass]="{
-                        'false-todo': todo.status?.status == 'done'
-                      }"
-                    >
-                      <span class="title">{{ todo.title }}</span>
+                    <td class="align-middle">
+                      <span class="title align-middle">{{ todo.title }}</span>
                     </td>
                     <td class="align-middle">
-                      <h6 class="mb-0">
+                      <h6 class="">
                         <span
-                          [ngClass]="{
-                            'status-btn': todo.status?.status == 'done',
-                            'false-status-todo':
-                              todo.status?.status == 'pending'
-                          }"
-                          class="badge"
+                          class="status-text"
                           >{{ todo.status?.status }}</span
                         >
                       </h6>
                     </td>
+
+                    <td class="align-middle">
+                      <a class="expired-text">{{
+                        todo.created_at_time | date
+                      }}</a>
+                    </td>
+                    <td class="align-middle">
+                      <a class="a expired-text">{{ todo.end_date | date }}</a>
+                    </td>
                     <td class="align-middle">
                       <button
                         class="badge edit-todo-btn"
+                        [class.disabled]="getExpired(todo)"
                         [routerLink]="['/todo', todo._id]"
                       >
                         <i class="fas fa-balance-scale" aria-hidden="true"></i
                         >Edit
                       </button>
                       <button
+                        [class.disabled]="getExpired(todo)"
                         class="badge bg-danger delete-todo-btn"
                         (click)="deleteTodo(todo._id)"
                       >
                         Delete
                       </button>
-                      <button
-                        class="badge change-status-btn"
-                        (click)="
-                          updateStatusTodo(todo._id, todo.status?._id || '')
-                        "
-                      >
-                        Change Status
-                      </button>
-                      <a
-                        *ngIf="todo.status?.status == 'done' as string"
-                        [ngClass]="{
-                          'false-todo-expired': todo.status?.status == 'done'
-                        }"
-                      >
+                      <p *ngIf="getExpired(todo)" class="false-todo-expired">
                         Expired
-                      </a>
-                      <a class="expired-text">{{todo.created_at_time | date}}</a>
+                      </p>
                     </td>
                   </tr>
                 </tbody>

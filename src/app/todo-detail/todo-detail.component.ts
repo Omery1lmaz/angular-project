@@ -1,36 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { durum, Todo } from 'src/interfaces/interfaces';
+import { Status, Todo } from 'src/interfaces/interfaces';
 import { TodoService } from 'src/services/todo.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'todo-detail',
-  templateUrl: './todo-and-todo-detail.component.html',
-  styleUrls: ['./todo-and-todo-detail.component.css'],
+  templateUrl: './todo-detail.component.html',
+  styleUrls: ['./todo-detail.component.css'],
 })
 export class TodoandDetailComponent implements OnInit {
   id!: string;
   todo!: Todo;
-  myForm!: FormGroup;
-  status!: durum[];
-  title!: string;
-  selectedOption: durum = {
-    status: 'pending',
-  };
+  status!: Status[];
+  todoForm = new FormGroup({
+    title: new FormControl('', [Validators.minLength(4), Validators.required]),
+    status: new FormControl('', [Validators.required]),
+  });
   constructor(
-    private _fb: FormBuilder,
     private route: ActivatedRoute,
     private todoservice: TodoService,
     private _router: Router
   ) {}
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as string;
-    this.myForm = this._fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      status: [this.status, [Validators.required]],
-    });
     this.todoservice
-      .getStatus()
+      .getStatuses()
       .then((res) => {
         this.status = res;
       })
@@ -39,8 +34,9 @@ export class TodoandDetailComponent implements OnInit {
       this.todoservice
         .getTodo(this.id)
         .then((res) => {
-          this.myForm.value.title = res.title;
-          this.title = this.todo ? this.todo.title : this.myForm.value.title;
+          this.todoForm.patchValue({
+            title: res.title,
+          });
           this.todo = res as Todo;
         })
         .catch(() => {
@@ -55,20 +51,10 @@ export class TodoandDetailComponent implements OnInit {
       this.addTodo();
     } else this.editTodo();
   }
-  getTodoLength() {
-    if (this.myForm.value.title.length > 5) {
-      return true;
-    }
-    return false;
-  }
   editTodo() {
-    if (this.myForm.valid) {
+    if (this.todoForm.valid) {
       this.todoservice
-        .editTodo(
-          this.todo._id,
-          this.myForm.value.title,
-          this.myForm.value.status
-        )
+        .editTodo({ id: this.id, todo: this.todoForm.value })
         .then(() => this._router.navigate(['/']))
         .catch(() => alert('Todo Editlenemedi '));
     } else {
@@ -76,9 +62,9 @@ export class TodoandDetailComponent implements OnInit {
     }
   }
   addTodo() {
-    if (this.myForm.valid) {
+    if (this.todoForm.valid) {
       this.todoservice
-        .addTodo(this.myForm.value.title, this.myForm.value.status)
+        .addTodo(this.todoForm.value)
         .then(() => this._router.navigate(['/']))
         .catch(() => alert('Todo eklenemedi '));
     } else {
